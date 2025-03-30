@@ -1,32 +1,32 @@
-# Mission 2
+# Mission 3
 
-## Part 0
+## Часть 1 / Часть 2
 
-[Link to video](https://www.youtube.com/watch?v=UUhavvMO2FQ)
+[Link to video](https://www.loom.com/share/cc4f776d38214e7b963bfa49b4c53d36?sid=b07fc095-a3a4-4666-b679-bb9dbcb87a1c)
 
-## Part1
+## Часть 3 - select'ы
 
-- Вопрос 1	 
-> SSH (Secure Shell) используется для безопасного удалённого доступа к серверам. Позволяет администрировать систему, передавать файлы и выполнять команды через зашифрованное соединение.  
+- Задание 1. Получить список юзернеймов пользователей	 
+> SELECT username FROM users  
 
-- Вопрос 2	 
-> Публичный ключ Васи нужно записать в файл:…/.ssh/authorized_keys  
+- Задание 2. Получить кол-во отправленных сообщений каждым пользователем
+> SELECT 
+  "from" AS user_id,
+  COUNT(*) AS number_of_sent_messages
+FROM messages
+GROUP BY "from 
 
-- Вопрос 3	 
-> Long Polling – клиент отправляет запрос и ждёт, пока сервер вернёт данные. Если данных нет, сервер держит соединение открытым. После ответа клиент делает новый запрос. Webhooks – сервер сам отправляет данные клиенту, когда появляется новое событие. Клиент заранее указывает URL для уведомлений.
+- Задание 3. Получить пользователя с самым большим кол-вом полученных сообщений и само количество
+> SELECT 
+  "to" AS user_id,
+  COUNT(*) AS number_of_received_messages
+FROM messages
+GROUP BY "to"
+ORDER BY number_of_received_messages DESC
+LIMIT 1
 
 
-- Вопрос 4	 
-> Issues – это вкладка / ветка в GitHub, которая используется для отслеживания ошибок, обсуждения предложений и ведения документации по проекту.
-> Примеры:
-> Node.js Issues
-> React Issues
-
-
-- Вопрос 5	 
-> Git не отслеживает пустые папки, но можно добавить пустой файл
-> touch images/.gitignore
-> git add images/.gitignore
-> git commit -m "Добавил пустую папку images с .gitignore"
-> git push -u origin --all  
-
+- Задание 4. Получить среднее кол-во сообщений, отправленное каждым пользователем
+> SELECT 
+  ROUND(COUNT(*) * 1.0 / COUNT(DISTINCT "from"), 2) AS avg_messages_per_user
+FROM messages
